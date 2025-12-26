@@ -16,6 +16,7 @@
   /* Accents */
   --accent-primary: #3b82f6;
   /* Blue 500 */
+  --accent-primary-rgb: 59, 130, 246;
   --accent-secondary: #8b5cf6;
   /* Violet 500 */
   --accent-glow: rgba(59, 130, 246, 0.5);

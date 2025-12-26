@@ -29,7 +29,25 @@
 
 .brand {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-info {
+  display: flex;
   flex-direction: column;
+}
+
+.brand-logo {
+  height: 3.5rem;
+  width: auto;
+  filter: drop-shadow(0 0 8px rgba(var(--accent-primary-rgb), 0.4));
+  transition: transform 0.3s ease;
+}
+
+.brand:hover .brand-logo {
+  transform: rotate(10deg);
 }
 
 .brand h1 {
@@ -37,6 +55,7 @@
   font-weight: 800;
   margin: 0;
   background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.02em;

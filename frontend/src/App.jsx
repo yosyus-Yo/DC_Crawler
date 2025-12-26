@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import dcIcon from './assets/dc_icon.png';
 import GallerySelector from './components/GallerySelector';
 import SearchBar from './components/SearchBar';
 import PostList from './components/PostList';
@@ -86,8 +87,11 @@ function App() {
       <header className="app-header">
         <div className="header-content">
           <div className="brand">
-            <h1>DC CRAWLER</h1>
-            <span className="subtitle">INTELLIGENCE V1.0 <span className="watermark">by 별하솜</span></span>
+            <img src={dcIcon} alt="DC Crawler Logo" className="brand-logo" />
+            <div className="brand-info">
+              <h1>DC CRAWLER</h1>
+              <span className="subtitle">INTELLIGENCE V1.0 <span className="watermark">by 별하솜</span></span>
+            </div>
           </div>
 
           <div className="system-status">
