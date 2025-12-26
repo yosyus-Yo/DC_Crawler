@@ -1,0 +1,51 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Install Python dependencies
+        working-directory: backend
+        run: |
+          pip install pyinstaller fastapi uvicorn requests beautifulsoup4 lxml
+
+      - name: Build EXE with PyInstaller
+        working-directory: backend
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name "DC_Crawler_App" --add-data "static;static" main.py
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DC_Crawler_App
+          path: backend/dist/DC_Crawler_App.exe
+          retention-days: 30

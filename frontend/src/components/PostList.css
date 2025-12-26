@@ -1,0 +1,128 @@
+/* Container */
+.post-list-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Header (Grid for Desktop) */
+.post-list-header {
+    display: grid;
+    grid-template-columns: 1fr 120px 100px 70px 70px;
+    padding: 0 1.25rem 0.6rem 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.post-list-header span {
+    display: flex;
+    align-items: center;
+}
+
+/* Post Item - Unified Glass Card */
+.post-item {
+    display: grid;
+    grid-template-columns: 1fr 120px 100px 70px 70px;
+    align-items: center;
+    padding: 0.85rem 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.post-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-highlight);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Columns */
+.post-title {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 1.5rem;
+}
+
+.post-item:hover .post-title {
+    color: var(--accent-primary);
+}
+
+.post-writer {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-date {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+}
+
+.post-views,
+.post-recommend {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    text-align: center;
+}
+
+.post-recommend {
+    color: var(--accent-secondary);
+}
+
+/* Empty State */
+.no-results {
+    text-align: center;
+    padding: 4rem;
+    color: var(--text-muted);
+    background: var(--bg-surface);
+    border-radius: 16px;
+    border: 1px dashed var(--border-subtle);
+}
+
+/* Responsive (Mobile Card View) */
+@media (max-width: 768px) {
+    .post-list-header {
+        display: none;
+    }
+
+    .post-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1.25rem;
+    }
+
+    .post-title {
+        font-size: 1.1rem;
+        white-space: normal;
+        overflow: visible;
+    }
+
+    .post-writer,
+    .post-date,
+    .post-views,
+    .post-recommend {
+        font-size: 0.8rem;
+        display: inline-block;
+        margin-right: 1rem;
+    }
+}

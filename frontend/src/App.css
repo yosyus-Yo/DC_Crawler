@@ -1,0 +1,134 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Glass Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 1rem 0;
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.brand .subtitle {
+  font-size: 0.75rem;
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+.brand .watermark {
+  color: var(--accent-secondary);
+  opacity: 0.7;
+  margin-left: 0.5rem;
+}
+
+/* System Status Indicators */
+.system-status {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.status-item .label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.status-item .value {
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.status-item .value.active {
+  color: var(--accent-primary);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Main Content Area */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.error-message {
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(220, 38, 38, 0.1);
+  /* Red-900 with opacity */
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #fca5a5;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  text-align: center;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 2rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
