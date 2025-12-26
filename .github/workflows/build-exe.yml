@@ -36,7 +36,7 @@ jobs:
       - name: Install Python dependencies
         working-directory: backend
         run: |
-          pip install pyinstaller fastapi uvicorn requests beautifulsoup4 lxml
+          pip install pyinstaller fastapi uvicorn requests beautifulsoup4 lxml pystray Pillow
 
       - name: Build EXE with PyInstaller
         working-directory: backend
