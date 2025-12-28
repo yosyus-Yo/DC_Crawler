@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import dcIcon from './assets/dc_icon.png';
 import GallerySelector from './components/GallerySelector';
 import SearchBar from './components/SearchBar';
 import PostList from './components/PostList';
@@ -19,6 +18,7 @@ function App() {
   const [currentKeyword, setCurrentKeyword] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
   const [searchPos, setSearchPos] = useState(null); // New state for DC search cursor
+  const [searchCount, setSearchCount] = useState(0); // 다음검색 횟수 추적
 
 
 
@@ -28,7 +28,12 @@ function App() {
     setIsLoading(true);
     setError(null);
     // Only clear posts if it is a fresh search (page 1 and no pos chain)
-    if (page === 1 && !pos) setPosts([]);
+    if (page === 1 && !pos) {
+      setPosts([]);
+      setSearchCount(1); // 새 검색 시 1로 초기화
+    } else {
+      setSearchCount(prev => prev + 1); // 다음 검색 시 +1
+    }
 
     try {
       setCurrentKeyword(keyword);
@@ -86,24 +91,11 @@ function App() {
     <div className="app-container">
       <header className="app-header">
         <div className="header-content">
-          <div className="brand">
-            <img src={dcIcon} alt="DC Crawler Logo" className="brand-logo" />
-            <div className="brand-info">
-              <h1>DC CRAWLER</h1>
-              <span className="subtitle">INTELLIGENCE V1.0 <span className="watermark">by 별하솜</span></span>
-            </div>
+          <div>
+            <h1>DC Gallery Crawler</h1>
+            <p className="subtitle">Overwatch Community Search</p>
           </div>
 
-          <div className="system-status">
-            <div className="status-item">
-              <span className="label">System</span>
-              <span className="value active">ONLINE</span>
-            </div>
-            <div className="status-item">
-              <span className="label">Ping</span>
-              <span className="value">12ms</span>
-            </div>
-          </div>
         </div>
       </header>
 
@@ -124,6 +116,11 @@ function App() {
           <div className="loading-spinner">검색 중...</div>
         ) : (
           <>
+            {hasSearched && searchCount > 0 && (
+              <div className="search-page-info">
+                {((searchCount - 1) * 10) + 1}~{searchCount * 10}번 다음검색 페이지
+              </div>
+            )}
             <PostList posts={currentPosts} viewMode="board" />
             {hasSearched && (
               <Pagination

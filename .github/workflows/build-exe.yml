@@ -38,10 +38,15 @@ jobs:
         run: |
           pip install pyinstaller fastapi uvicorn requests beautifulsoup4 lxml pystray Pillow
 
+      - name: Convert PNG to ICO
+        working-directory: backend
+        run: |
+          python -c "from PIL import Image; img = Image.open('static/dc_icon.png'); img.save('app_icon.ico', format='ICO', sizes=[(256,256), (128,128), (64,64), (48,48), (32,32), (16,16)])"
+
       - name: Build EXE with PyInstaller
         working-directory: backend
         run: |
-          pyinstaller --noconfirm --onefile --windowed --name "DC_Crawler_App" --add-data "static;static" main.py
+          pyinstaller --noconfirm --onefile --windowed --name "DC_Crawler_App" --icon "app_icon.ico" --add-data "static;static" main.py
 
       - name: Upload EXE artifact
         uses: actions/upload-artifact@v4

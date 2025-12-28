@@ -367,17 +367,19 @@ def open_browser():
 def create_tray_icon():
     """시스템 트레이 아이콘 생성"""
     from pystray import Icon, Menu, MenuItem
-    from PIL import Image, ImageDraw
+    from PIL import Image
 
-    # 간단한 아이콘 이미지 생성 (파란색 원)
-    def create_icon_image():
+    def load_icon_image():
+        # PyInstaller 번들 경로 또는 일반 경로에서 아이콘 로드
+        icon_path = os.path.join(static_dir, "dc_icon.png")
+        if os.path.exists(icon_path):
+            return Image.open(icon_path).resize((64, 64))
+        # 폴백: 간단한 파란색 원
+        from PIL import ImageDraw
         size = 64
         image = Image.new('RGBA', (size, size), (0, 0, 0, 0))
         draw = ImageDraw.Draw(image)
-        # 파란색 원
         draw.ellipse([4, 4, size-4, size-4], fill='#3b82f6')
-        # 중앙에 DC 텍스트
-        draw.text((size//2 - 10, size//2 - 8), "DC", fill='white')
         return image
 
     def on_open_browser(icon, item):
@@ -394,7 +396,7 @@ def create_tray_icon():
 
     icon = Icon(
         "DC Crawler",
-        create_icon_image(),
+        load_icon_image(),
         "DC Crawler - by 별하솜",
         menu
     )
