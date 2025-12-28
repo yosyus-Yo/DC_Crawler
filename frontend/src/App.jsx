@@ -125,7 +125,7 @@ function App() {
           <>
             {hasSearched && searchCount > 0 && (
               <div className="search-page-info">
-                로드된 페이지: {searchCount * 10}
+                로드된 페이지: 1~{searchCount * 10}
               </div>
             )}
             <PostList posts={currentPosts} viewMode="board" />
