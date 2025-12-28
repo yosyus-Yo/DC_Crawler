@@ -38,6 +38,8 @@ function App() {
     try {
       setCurrentKeyword(keyword);
 
+      console.log('API Call:', { gallery_id: selectedGallery, keyword, page, search_pos: pos, limit: 10 });
+
       const response = await axios.get('http://localhost:8000/search', {
         params: {
           gallery_id: selectedGallery,
@@ -47,6 +49,9 @@ function App() {
           limit: 10 // Sequential Batch: Fetch 10 blocks at once
         }
       });
+
+      console.log('API Response:', response.data);
+      console.log('Posts count:', response.data.posts?.length, 'Next pos:', response.data.next_search_pos);
 
       if (response.data.posts) {
         if (pos) {
@@ -73,11 +78,13 @@ function App() {
   };
 
   const handleNextSearch = () => {
+    console.log('handleNextSearch called:', { currentKeyword, searchPos });
     if (currentKeyword && searchPos) {
       // "Next Search" means fetch page 1 (of the new block) but with the new search_pos
       // Limit 10 is handled by handleSearch default call
       handleSearch(currentKeyword, 1, searchPos);
     } else {
+      console.log('No searchPos, falling back to dcPage + 1:', dcPage + 1);
       // Fallback if no searchPos (e.g. first page or first search), just try next page
       handleSearch(currentKeyword, dcPage + 1);
     }
@@ -118,7 +125,7 @@ function App() {
           <>
             {hasSearched && searchCount > 0 && (
               <div className="search-page-info">
-                {((searchCount - 1) * 10) + 1}~{searchCount * 10}번 다음검색 페이지
+                로드된 페이지: {searchCount * 10}
               </div>
             )}
             <PostList posts={currentPosts} viewMode="board" />
